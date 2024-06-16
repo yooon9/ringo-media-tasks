@@ -1,5 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using RingoMedia.Tasks.Application.Models;
 using RingoMedia.Tasks.Application.Services.DepartmentServices;
+using RingoMedia.Tasks.Application.Services.EmailServices;
+using RingoMedia.Tasks.Application.Services.ReminderServices;
 using RingoMedia.Tasks.Domain.Context;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,10 +12,22 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//Db configuration
 builder.Services.AddDbContext<RingoMediaDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("RingoMediaDb")));
 
+//Department configuration
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+
+#region Email configuration
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddSingleton(p => p.GetService<IOptions<EmailSettings>>()?.Value);
+builder.Services.AddSingleton<IEmailService, EmailService>();
+builder.Services.AddSingleton<IScheduleReminderService, ScheduleReminderService>();
+#endregion
+
+//Reminder configuration
+builder.Services.AddScoped<IReminderService, ReminderService>();
 
 var app = builder.Build();
 

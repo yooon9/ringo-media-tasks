@@ -1,0 +1,28 @@
+﻿@model IEnumerable<RingoMedia.Tasks.Domain.DbEntities.Reminder>
+
+@{
+    ViewData["Title"] = "Reminders";
+}
+
+<h1>Reminders</h1>
+
+<a class="btn btn-primary" asp-action="Create">create reminder</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Title</th>
+            <th>Reminder date time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var department in Model)
+        {
+            <tr>
+                <td>@department.Email</td>
+                <td>@department.Title</td>
+                <td>@department.DateTime</td>
+            </tr>
+        }
+    </tbody>
+</table>

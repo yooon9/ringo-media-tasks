@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class CreateDepartmentModel
+    public sealed class CreateDepartmentModel
     {
         [Required]
         public string Name { get; set; }

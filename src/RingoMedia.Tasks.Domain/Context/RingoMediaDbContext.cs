@@ -6,6 +6,7 @@
     public class RingoMediaDbContext : DbContext
     {
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Reminder> Reminders { get; set; }
 
         public RingoMediaDbContext(DbContextOptions<RingoMediaDbContext> options)
             : base(options)
@@ -18,6 +19,8 @@
                 .HasMany(d => d.SubDepartments)
                 .WithOne(d => d.ParentDepartment)
                 .HasForeignKey(d => d.ParentDepartmentId);
+
+            modelBuilder.Entity<Reminder>();
         }
     }
 }

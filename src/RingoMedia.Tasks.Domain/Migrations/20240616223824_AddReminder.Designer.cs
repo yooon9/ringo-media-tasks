@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RingoMedia.Tasks.Domain.Context;
 
@@ -11,9 +12,11 @@ using RingoMedia.Tasks.Domain.Context;
 namespace RingoMedia.Tasks.Domain.Migrations
 {
     [DbContext(typeof(RingoMediaDbContext))]
-    partial class RingoMediaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240616223824_AddReminder")]
+    partial class AddReminder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,10 +61,6 @@ namespace RingoMedia.Tasks.Domain.Migrations
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()

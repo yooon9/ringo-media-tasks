@@ -20,7 +20,7 @@
 
         public async Task<List<Department>> GetDepartmentsAsync()
         {
-            return await _context.Departments.Include(d => d.SubDepartments).ToListAsync();
+            return await _context.Departments.AsNoTracking().ToListAsync();
         }
 
         public async Task<DepartmentDetailsDto> GetDepartmentAsync(int id)
