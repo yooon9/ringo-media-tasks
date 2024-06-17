@@ -29,6 +29,12 @@
             if (!ModelState.IsValid)
                 return View(reminderModel);
 
+            if (reminderModel.DateTime < DateTime.Now)
+            {
+                ModelState.AddModelError("DateTime", "please fix Reminder date");
+                return View(reminderModel);
+            }
+
             await _reminderService.CreateReminderAsync(reminderModel);
             return RedirectToAction(nameof(Index));
         }

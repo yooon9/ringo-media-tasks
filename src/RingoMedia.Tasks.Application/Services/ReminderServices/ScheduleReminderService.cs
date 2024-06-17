@@ -27,7 +27,7 @@
             var delay = reminder.DateTime - DateTime.Now;
             if (delay.TotalMilliseconds <= 0)
             {
-                await SendReminderAsync(reminder).ConfigureAwait(false);
+                SendReminderAsync(reminder).ConfigureAwait(false);
                 return;
             }
 
