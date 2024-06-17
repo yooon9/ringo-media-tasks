@@ -3,7 +3,6 @@
     using Microsoft.AspNetCore.Mvc;
     using RingoMedia.Tasks.Application.Models;
     using RingoMedia.Tasks.Application.Services.DepartmentServices;
-    using RingoMedia.Tasks.Domain.DbEntities;
 
     public class DepartmentsController : Controller
     {

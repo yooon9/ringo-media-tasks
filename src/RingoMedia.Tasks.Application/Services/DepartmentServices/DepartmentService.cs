@@ -61,6 +61,7 @@
         #region Helpers
         private async Task<List<DepartmentHierarchyDto>> GetDepartmentHierarchyAsync(int departmentId)
         {
+            //SQL Server (CTE) Expression
             var query = @"
             WITH DepartmentHierarchy AS (
                 SELECT 

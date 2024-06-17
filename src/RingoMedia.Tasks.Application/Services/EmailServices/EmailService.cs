@@ -26,15 +26,14 @@
             //};
         }
 
-        public async Task SendAsync(string toEmail, string subject, string body, bool isBodyHtml = true)
+        public async Task SendAsync(string toEmail, string subject, string body)
         {
             try
             {
                 //var mail = new MailMessage(_settings.SenderName, toEmail)
                 //{
                 //    Subject = subject,
-                //    Body = body,
-                //    IsBodyHtml = isBodyHtml
+                //    Body = body
                 //};
                 //_smtpClient.Send(mail);
             }

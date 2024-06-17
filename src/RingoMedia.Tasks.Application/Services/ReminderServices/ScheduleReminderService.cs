@@ -36,7 +36,7 @@
 
         private async Task SendReminderAsync(Reminder reminder)
         {
-            _emailService.SendAsync(reminder.Email, "Reminder", reminder.Title).ConfigureAwait(false);
+            _emailService.SendAsync(reminder.Email, reminder.Title, "Reminder").ConfigureAwait(false);
         }
     }
 }

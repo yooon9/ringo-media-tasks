@@ -25,11 +25,8 @@
     </div>
     <div class="form-group">
         <label class="control-label">Parent Department</label>
-        <div id="departmentDropdowns">
-            <select class="form-control department-select" data-level="0">
-                <option value="">Select Parent Department</option>
-            </select>
-        </div>
+        <!--This div for load department dropdown list-->
+        <div id="departmentDropdowns"></div>
         <input type="hidden" id="ParentDepartmentId" name="ParentDepartmentId" />
         <span asp-validation-for="ParentDepartmentId" class="text-danger"></span>
     </div>
@@ -50,7 +47,8 @@
                 if (event.target.classList.contains('department-select')) {
                     var selectedValue = event.target.value;
                     var level = parseInt(event.target.dataset.level);
-
+                    console.log('selected value is:', selectedValue);
+                    console.log('level value is:', level);
                     // Remove all dropdowns after the current level
                     var dropdowns = document.querySelectorAll('.department-select');
                     dropdowns.forEach(function (dropdown) {
@@ -89,13 +87,7 @@
                             select.appendChild(option);
                         });
 
-                        if (parentId == null || parentId == 0) {
-                            var container = document.getElementById('departmentDropdowns');
-                            container.innerHTML = '';
-                            container.appendChild(select);
-                        } else {
-                            document.getElementById('departmentDropdowns').appendChild(select);
-                        }
+                        document.getElementById('departmentDropdowns').appendChild(select);
                     }
                 });
         }

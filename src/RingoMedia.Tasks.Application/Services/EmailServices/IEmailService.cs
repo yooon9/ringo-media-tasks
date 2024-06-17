@@ -4,6 +4,6 @@
 
     public interface IEmailService
     {
-        Task SendAsync(string toEmail, string subject, string body, bool isBodyHtml = true);
+        Task SendAsync(string toEmail, string subject, string body);
     }
 }
