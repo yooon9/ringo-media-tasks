@@ -58,8 +58,7 @@
 
         public async Task SendReminderToEmailAsync(Reminder reminder)
         {
-            var sendEmailStatus = await SendAsync(reminder.Email, reminder.Title, "Reminder");
-            if (sendEmailStatus)
+            if (await SendAsync(reminder.Email, reminder.Title, "Reminder"))
                 reminder.SetStatus(ReminderStatus.Sent);
             else
                 reminder.SetStatus(ReminderStatus.Error);

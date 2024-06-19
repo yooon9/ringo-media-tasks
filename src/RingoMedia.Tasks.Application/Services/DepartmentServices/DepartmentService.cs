@@ -20,7 +20,7 @@
 
         public async Task<List<Department>> GetDepartmentsAsync()
         {
-            return await _context.Departments.AsNoTracking().ToListAsync();
+            return await _context.Departments.Include(a => a.ParentDepartment).AsNoTracking().ToListAsync();
         }
 
         public async Task<DepartmentDetailsDto> GetDepartmentAsync(int id)
@@ -126,52 +126,53 @@
         }
 
         #region Department Tree
-        private async Task<List<DepartmentHierarchyDto>> GetRecursiveDepartmentHierarchy(int departmentId, int? parentId)
+        public async Task<List<DepartmentHierarchyDto>> GetRecursiveDepartmentHierarchy(int? departmentId = null, int? parentId = null)
         {
             var departments = new List<DepartmentHierarchyDto>();
             var connectionString = _context.Database.GetDbConnection().ConnectionString;
             var query = @"
     WITH RecursiveCTE AS (
-        SELECT 
-            Id, 
-            Name, 
-            ParentDepartmentId, 
-            0 AS Level
-        FROM 
-            Departments
-        WHERE 
-            id = @departmentId
+      SELECT 
+          Id, 
+          Name, 
+          ParentDepartmentId, 
+          0 AS Level
+      FROM 
+          Departments
+      WHERE 
+		(@departmentId = 0 and ParentDepartmentId is NULL)
+		or (@departmentId != 0 and id = @departmentId)
 
-        UNION ALL
+      UNION ALL
 
-        SELECT 
-            d.Id, 
-            d.Name, 
-            d.ParentDepartmentId, 
-            r.Level + 1
-        FROM 
-            Departments d
-        INNER JOIN 
-            RecursiveCTE r 
-        ON 
-            d.ParentDepartmentId = r.Id
-    )
-    SELECT 
-        Id, 
-        Name, 
-        ParentDepartmentId, 
-        Level
-    FROM 
-        RecursiveCTE
-    ORDER BY 
-        Level, 
-        ParentDepartmentId, 
-        Id;
+      SELECT 
+          d.Id, 
+          d.Name, 
+          d.ParentDepartmentId, 
+          r.Level + 1
+      FROM 
+          Departments d
+      INNER JOIN 
+          RecursiveCTE r 
+      ON 
+          d.ParentDepartmentId = r.Id
+  )
+  SELECT 
+      Id, 
+      Name, 
+      ParentDepartmentId, 
+      Level
+  FROM 
+      RecursiveCTE
+  ORDER BY 
+      Level, 
+      ParentDepartmentId, 
+      Id;
 ";
 
             using (var connection = new SqlConnection(connectionString))
             {
-                var parameters = new SqlParameter("@departmentId", departmentId);
+                var parameters = new SqlParameter("@departmentId", departmentId??0);
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.Add(parameters);

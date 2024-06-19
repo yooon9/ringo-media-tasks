@@ -1,7 +1,7 @@
-﻿@model RingoMedia.Tasks.Application.Dto.DepartmentDetailsDto
+﻿@model IEnumerable<RingoMedia.Tasks.Application.Dto.DepartmentHierarchyDto>
 
 @{
-    ViewData["Title"] = "Department Details";
+    ViewData["Title"] = "Display Departments";
 }
 <style>
     li {
@@ -14,37 +14,17 @@
     }
 </style>
 
-<div class="row">
-    <div class="col-md-1">
-        <img style="height:80px;width:80px;" src="@Model.LogoUrl" alt="Logo" />
-    </div>
-    <div class="col-md-11">
-        <span class="text-silver">Department name</span>
-        <h2>@Model.Name</h2>
-    </div>
-
-    <div col-md-12>
-        <hr />
-    </div>
-</div>
-
-@if ((Model?.Parents?.Count ?? 0) > 1)
-{
-    <h5 style="margin-top:20px;">Parent Department</h5>
-    <h6 class="text-silver">@string.Join("/", Model.Parents.Select(a => $"{a.Name}"))</h6>
-    <hr />
-}
-
-@if ((Model?.SubDepartments?.FirstOrDefault()?.SubDepartments?.Count ?? 0) > 0)
+@if (Model.Any())
 {
     <h1 style="margin-top:20px;">Sub Departments Tree</h1>
     <small class="text-silver">Click to view sub departments</small>
     <div id="departmentsTree">
-        @Html.Raw(BuildTree(Model.SubDepartments))
+        @Html.Raw(BuildTree(Model.ToList()))
     </div>
 }
 <hr />
 <a asp-action="Index" class="btn btn-primary">< Back</a>
+
 
 
 @functions {
@@ -64,7 +44,6 @@
         return html;
     }
 }
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script type="text/javascript">

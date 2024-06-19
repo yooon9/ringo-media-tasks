@@ -13,7 +13,7 @@
             _departmentService = departmentService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index()    
         {
             return View(await _departmentService.GetDepartmentsAsync());
         }
@@ -26,6 +26,12 @@
                 return NotFound();
 
             return View(department);
+        }
+        
+        public async Task<IActionResult> DisplayDepartments()
+        {
+            var departments = await _departmentService.GetRecursiveDepartmentHierarchy();
+            return View(departments);
         }
 
         public IActionResult Create()

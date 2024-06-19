@@ -6,11 +6,13 @@
 
 <h1>Departments</h1>
 
-<a class="btn btn-primary" asp-action="Create">create departemnt</a>
-<table class="table">
+<a class="btn btn-outline-primary" asp-action="Create">create departemnt</a>
+<a class="btn btn-outline-warning" asp-action="DisplayDepartments">Display departments</a>
+<table class="table table-hover">
     <thead>
         <tr>
             <th>Name</th>
+            <th>Parent Department</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -19,8 +21,9 @@
         {
             <tr>
                 <td>@department.Name</td>
+                <td>@department.ParentDepartment?.Name</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@department.Id">View</a>
+                    <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@department.Id">View</a>
                 </td>
             </tr>
         }

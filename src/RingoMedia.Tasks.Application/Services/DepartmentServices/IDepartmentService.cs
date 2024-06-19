@@ -11,6 +11,7 @@
         Task<int> CreateDepartmentAsync(CreateDepartmentModel departmentModel);
         Task<DepartmentDetailsDto> GetDepartmentAsync(int id);
         Task<List<Department>> GetDepartmentsAsync();
+        Task<List<DepartmentHierarchyDto>> GetRecursiveDepartmentHierarchy(int? departmentId = null, int? parentId = null);
         Task<List<Department>> GetSubDepartmentsAsync(int? id);
     }
 }
