@@ -1,4 +1,5 @@
-﻿@model IEnumerable<RingoMedia.Tasks.Domain.DbEntities.Reminder>
+﻿@using RingoMedia.Tasks.Domain.DbEntities.Enums;
+@model IEnumerable<RingoMedia.Tasks.Domain.DbEntities.Reminder>
 
 @{
     ViewData["Title"] = "Reminders";
@@ -13,15 +14,20 @@
             <th>Email</th>
             <th>Title</th>
             <th>Reminder date time</th>
+            <th>Status</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var department in Model)
         {
+            var reminderStatusColor = department.Status is ReminderStatus.Pending ? "text-warning" 
+                        : department.Status is ReminderStatus.Sent ? "text-success" 
+                        : "text-danger";
             <tr>
                 <td>@department.Email</td>
                 <td>@department.Title</td>
                 <td>@department.DateTime</td>
+                <td class="@reminderStatusColor">@department.Status</td>
             </tr>
         }
     </tbody>

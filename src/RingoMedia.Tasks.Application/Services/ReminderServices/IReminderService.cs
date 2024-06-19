@@ -9,5 +9,6 @@
     {
         Task<int> CreateReminderAsync(CreateReminderModel ReminderModel);
         Task<List<Reminder>> GetRemindersAsync();
+        Task<Reminder> UpdateReminderAsync(Reminder reminder);
     }
 }

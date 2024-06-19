@@ -19,15 +19,15 @@ builder.Services.AddDbContext<RingoMediaDbContext>(options =>
 //Department configuration
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
+builder.Services.AddScoped<IReminderService, ReminderService>();
+
 #region Email configuration
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddSingleton(p => p.GetService<IOptions<EmailSettings>>()?.Value);
 builder.Services.AddSingleton<IEmailService, EmailService>();
-builder.Services.AddSingleton<IScheduleReminderService, ScheduleReminderService>();
 #endregion
 
 //Reminder configuration
-builder.Services.AddScoped<IReminderService, ReminderService>();
 
 var app = builder.Build();
 
