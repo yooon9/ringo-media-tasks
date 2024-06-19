@@ -57,12 +57,14 @@
                         }
                     });
 
+                    dropdowns = document.querySelectorAll('.department-select');
                     if (selectedValue) {
                         loadSubDepartments(selectedValue, level + 1);
                         document.getElementById('ParentDepartmentId').value = selectedValue;
                     } else {
                         document.getElementById('ParentDepartmentId').value = dropdowns.length > 1 ? dropdowns[dropdowns.length - 2].value : "";
                     }
+                    console.log('ParentDepartmentId value is:', document.getElementById('ParentDepartmentId').value);
                 }
             });
         });
