@@ -1,12 +1,10 @@
 ﻿namespace RingoMedia.Tasks.Application.Services.ReminderServices
 {
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.DependencyInjection;
     using RingoMedia.Tasks.Application.Models;
     using RingoMedia.Tasks.Application.Services.EmailServices;
     using RingoMedia.Tasks.Domain.Context;
     using RingoMedia.Tasks.Domain.DbEntities;
-    using RingoMedia.Tasks.Domain.DbEntities.Enums;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;

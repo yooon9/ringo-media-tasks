@@ -6,5 +6,6 @@
         public string Name { get; set; }
         public int? ParentDepartmentId { get; set; }
         public int? Level { get; set; }
+        public List<DepartmentHierarchyDto> SubDepartments { get; set; }
     }
 }

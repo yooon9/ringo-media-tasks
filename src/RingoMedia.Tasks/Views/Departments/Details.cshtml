@@ -3,9 +3,67 @@
 @{
     ViewData["Title"] = "Department Details";
 }
+<style>
+    li {
+        cursor: pointer;
+    }
+</style>
 
-<h4>Parents</h4>
-<h5>@string.Join(" > ", Model.Parents.Select(a => $"{a.Name}"))</h5>
-<hr />
-<h1>@Model.Name</h1>
-<img src="@Model.LogoUrl" alt="Logo" />
+<div class="row">
+    <div class="col-md-1">
+        <img style="height:80px;width:80px;" src="@Model.LogoUrl" alt="Logo" />
+    </div>
+    <div class="col-md-11">
+        <span style="color:silver;">Department name</span>
+        <h2>@Model.Name</h2>
+    </div>
+
+    <div col-md-12>
+        <hr />
+    </div>
+</div>
+
+@if ((Model?.Parents?.Count ?? 0) > 1)
+{
+    <h5 style="margin-top:20px;">Parent Department</h5>
+    <h6 style="color:silver;">@string.Join("/", Model.Parents.Select(a => $"{a.Name}"))</h6>
+    <hr />
+}
+
+<h1 style="margin-top:20px;">Sub Departments Tree</h1>
+<div id="departmentsTree">
+    @Html.Raw(BuildTree(Model.SubDepartments))
+</div>
+
+
+@functions {
+    public string BuildTree(List<RingoMedia.Tasks.Application.Dto.DepartmentHierarchyDto> departments)
+    {
+        var html = "<ul>";
+        foreach (var department in departments)
+        {
+            html += "<li>" + department.Name;
+            if (department.SubDepartments != null && department.SubDepartments.Count > 0)
+            {
+                html += BuildTree(department.SubDepartments);
+            }
+            html += "</li>";
+        }
+        html += "</ul>";
+        return html;
+    }
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#departmentsTree > ul').show();
+
+            $('#departmentsTree li').click(function (e) {
+                $(this).children('ul').toggle();
+                e.stopPropagation();
+            });
+        });
+    </script>
+}

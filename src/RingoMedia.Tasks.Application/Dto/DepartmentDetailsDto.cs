@@ -9,5 +9,6 @@
         public string LogoUrl { get; set; }
         public int? ParentDepartmentId { get; set; }
         public List<DepartmentHierarchyDto> Parents { get; set; }
+        public List<DepartmentHierarchyDto> SubDepartments { get; set; }
     }
 }

@@ -5,8 +5,16 @@
 
     public class Department
     {
-        public Department(string name, string logoUrl, int? parentDepartmentId = null)
+        public Department(string name, string logoUrl, int? parentDepartmentId)
         {
+            Name = name;
+            LogoUrl = logoUrl;
+            ParentDepartmentId = parentDepartmentId;
+        }
+
+        public Department(int id, string name, string logoUrl, int? parentDepartmentId)
+        {
+            Id = id;
             Name = name;
             LogoUrl = logoUrl;
             ParentDepartmentId = parentDepartmentId;
