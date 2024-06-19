@@ -30,10 +30,13 @@
     <hr />
 }
 
-<h1 style="margin-top:20px;">Sub Departments Tree</h1>
-<div id="departmentsTree">
-    @Html.Raw(BuildTree(Model.SubDepartments))
-</div>
+@if ((Model?.SubDepartments?.FirstOrDefault()?.SubDepartments?.Count ?? 0) > 0)
+{
+    <h1 style="margin-top:20px;">Sub Departments Tree</h1>
+    <div id="departmentsTree">
+        @Html.Raw(BuildTree(Model.SubDepartments))
+    </div>
+}
 
 
 @functions {
