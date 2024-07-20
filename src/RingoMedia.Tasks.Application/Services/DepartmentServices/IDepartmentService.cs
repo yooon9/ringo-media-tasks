@@ -9,6 +9,7 @@
     public interface IDepartmentService
     {
         Task<int> CreateDepartmentAsync(CreateDepartmentModel departmentModel);
+        Task<int> UpdateDepartmentAsync(UpdateDepartmentModel departmentModel);
         Task<DepartmentDetailsDto> GetDepartmentAsync(int id);
         Task<List<Department>> GetDepartmentsAsync();
         Task<List<DepartmentHierarchyDto>> GetRecursiveDepartmentHierarchy(int? departmentId = null, int? parentId = null);

@@ -24,6 +24,7 @@
                 <td>@department.ParentDepartment?.Name</td>
                 <td>
                     <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@department.Id">View</a>
+                    | <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@department.Id">Edit</a>
                 </td>
             </tr>
         }

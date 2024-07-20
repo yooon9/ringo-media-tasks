@@ -51,6 +51,15 @@
             return department.Id;
         }
 
+        public async Task<int> UpdateDepartmentAsync(UpdateDepartmentModel departmentModel)
+        {
+            var department = new Department(departmentModel.Id, departmentModel.Name,
+                departmentModel.LogoUrl, departmentModel.ParentDepartmentId);
+            _context.Update(department);
+            await _context.SaveChangesAsync();
+            return department.Id;
+        }
+
         public async Task<List<Department>> GetSubDepartmentsAsync(int? id)
         {
             return await _context.Departments
@@ -172,7 +181,7 @@
 
             using (var connection = new SqlConnection(connectionString))
             {
-                var parameters = new SqlParameter("@departmentId", departmentId??0);
+                var parameters = new SqlParameter("@departmentId", departmentId ?? 0);
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.Add(parameters);

@@ -3,13 +3,7 @@
 @{
     ViewData["Title"] = "Create Department";
 }
-@section Styles {
-    <style>
-        .department-custome-style {
-            margin-top: 5px;
-        }
-    </style>
-}
+
 <h1>Create Department</h1>
 
 <form asp-action="Create" method="post">
@@ -23,7 +17,7 @@
         <input asp-for="LogoUrl" class="form-control" />
         <span asp-validation-for="LogoUrl" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group" id="departmentContainerDev">
         <label class="control-label">Parent Department</label>
         <!--This div for load department dropdown list-->
         <div id="departmentDropdowns"></div>
@@ -88,7 +82,12 @@
                             select.appendChild(option);
                         });
 
-                        document.getElementById('departmentDropdowns').appendChild(select);
+                        if ($(select).find('option').length > 1) {
+                            document.getElementById('departmentDropdowns').appendChild(select);
+                        }
+                    }
+                    else if (level == 0) {
+                        $('#departmentContainerDev').remove();
                     }
                 });
         }
